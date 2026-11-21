@@ -1,34 +1,35 @@
-# vigger
+# ![Vagrant UI](docs/readme/banner.svg)
 
-## Project setup
-```
-npm install
-```
+An Electron and Vue application for browsing Vagrant boxes and managing local Vagrant workflows. The package is also named Vigger in the project files.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+[Quick start](#quick-start) · [Validation](#validation) · [Project layout](#project-layout) · [License](#license)
 
-### Compiles and minifies for production
-```
-npm run build
+## Quick start
+
+Use a Node.js environment compatible with the existing Electron and Vue toolchain, along with Vagrant for host operations.
+
+```sh
+npm ci
+npm run start-dev
 ```
 
-### Run your tests
-```
-npm run test
+## Validation
+
+```sh
+npm run transpile
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+Launch the app locally to verify that Vagrant is available and the main window opens.
 
-### Run your unit tests
-```
-npm run test:unit
-```
+## Project layout
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+| Path | Purpose |
+| --- | --- |
+| [`src/electron/`](src/electron/) | Electron main process |
+| [`src/modules/vagrant/`](src/modules/vagrant/) | Vagrant integration |
+| [`src/views/`](src/views/) | Desktop screens |
+| [`tests/`](tests/) | Test configuration and sources |
+
+## License
+
+See [`LICENSE`](LICENSE) for license terms.
