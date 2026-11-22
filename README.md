@@ -2,7 +2,7 @@
 
 An Electron and Vue application for browsing Vagrant boxes and managing local Vagrant workflows. The package is also named Vigger in the project files.
 
-[![Validation](https://github.com/svazqz/vagrant-ui/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/svazqz/vagrant-ui/actions/workflows/ci.yml)
+[![Validation](https://github.com/svazqz/vagrant-ui/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/svazqz/vagrant-ui/actions/workflows/ci.yml)
 
 [Quick start](#quick-start) · [Validation](#validation) · [Project layout](#project-layout) · [License](#license)
 
