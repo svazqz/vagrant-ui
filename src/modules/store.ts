@@ -9,7 +9,8 @@ function parseDataFile(filePath: any, defaults: any) {
   // object.
   try {
     const content: string = fs.readFileSync(filePath, {encoding: 'utf-8'});
-    return JSON.parse(content);
+    const parsed = JSON.parse(content);
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : defaults;
   } catch (error) {
     // if there was some kind of error, return the passed in defaults instead.
     return defaults;
@@ -27,7 +28,7 @@ export class Store {
   constructor(opts: StoreOptions) {
     const userDataPath = (app || remote.app).getPath('userData');
     this.path = path.join(userDataPath, opts.configName + '.json');
-    this.data = parseDataFile(this.path, opts.defaults);
+    this.data = parseDataFile(this.path, opts.defaults || {});
   }
 
   // Get a stored value from the specified file.

@@ -38,7 +38,13 @@ export class AtlasAPI {
           bearer: AtlasAPI.bearerToken
         }
       }, (error: any, response: Response, body: any) => {
-        if (!error) {
+        if (error || !response || response.statusCode < 200 || response.statusCode >= 300) {
+          observer.next(null);
+          observer.complete();
+          return;
+        }
+
+        try {
           const responseBoxes = JSON.parse(body).boxes;
           const boxes: Box[] = [];
           for (const b of responseBoxes) {
@@ -57,9 +63,10 @@ export class AtlasAPI {
             boxes.push(box);
           }
           observer.next(boxes);
-        } else {
+        } catch {
           observer.next(null);
         }
+        observer.complete();
       });
     });
   }

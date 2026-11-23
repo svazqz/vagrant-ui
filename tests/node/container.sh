@@ -8,4 +8,6 @@ cd "$workdir"
 npm exec --yes --package=npm@6.14.18 -- npm ci --ignore-scripts --no-audit
 npm run transpile
 node --experimental-test-coverage --test-coverage-include='dist/modules/cmd.js' \
-  --test-coverage-lines=95 --test tests/node/cmd.test.cjs
+  --test-coverage-include='dist/modules/atlas-api.js' \
+  --test-coverage-include='dist/modules/store.js' \
+  --test-coverage-lines=95 --test tests/node/*.test.cjs
