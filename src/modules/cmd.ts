@@ -20,7 +20,12 @@ export class CMD {
     this.child = ChildProcess.spawn(cmd, args);
     this.status = STATUS.RUNNING;
 
-    console.log(this.child);
+    this.child.on('error', (error: Error) => {
+      this.status = STATUS.STOPPED;
+      if (this.callbacks.onError !== undefined) {
+        this.callbacks.onError.call(this, error);
+      }
+    });
 
     this.child.stdout.on('data', (buffer: any) => {
       if (this.callbacks.onData !== undefined) {
@@ -50,7 +55,7 @@ export class CMD {
     signal = signal || 'SIGKILL';
     ps_tree(pid, (err: any, children: any) => {
       [pid].concat(
-        children.map((p: any) => {
+        (children || []).map((p: any) => {
           return p.PID;
         })
       ).forEach((tpid) => {

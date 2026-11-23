@@ -14,21 +14,18 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
-    name: "Electron TypeScript build"
+    name: "Desktop process tests"
     runs-on: "ubuntu-24.04"
-    timeout-minutes: 10
+    timeout-minutes: 18
     steps:
       - name: "Check out source"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-      - name: "Set up Node.js"
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
-        with:
-          node-version: "12"
-          package-manager-cache: false
-          cache: "npm"
-      - name: "Install locked legacy dependencies"
-        run: "npm ci --ignore-scripts"
-      - name: "Compile the desktop process"
-        run: "npm run transpile"
+      - name: "Compile and run headless process tests in Docker"
+        shell: bash
+        run: |
+          set -o pipefail
+          docker run --rm --init \
+            --mount "type=bind,source=$GITHUB_WORKSPACE,target=/src,readonly" \
+            node:22-bookworm-slim sh /src/tests/node/container.sh | tee -a "$GITHUB_STEP_SUMMARY"
